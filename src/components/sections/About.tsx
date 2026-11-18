@@ -1,3 +1,4 @@
+import portrait from '../../assets/akashveer-singh.webp'
 import { profile } from '../../data/profile'
 import { Reveal } from '../ui/Reveal'
 import { SectionHeading } from '../ui/SectionHeading'
@@ -51,6 +52,34 @@ function ProfileCard() {
   )
 }
 
+function Portrait() {
+  return (
+    <figure className="group relative">
+      <div className="relative overflow-hidden rounded-[12px] border border-line bg-surface">
+        <img
+          src={portrait}
+          alt="Portrait of Akashveer Singh"
+          width={843}
+          height={752}
+          loading="lazy"
+          decoding="async"
+          className="aspect-[4/5] w-full object-cover object-[50%_30%] transition-transform duration-700 ease-out-expo group-hover:scale-[1.02]"
+        />
+        {/* soft tonal blend into the dark UI */}
+        <div
+          aria-hidden
+          className="pointer-events-none absolute inset-0 bg-gradient-to-t from-ink/70 via-transparent to-transparent"
+        />
+        <div aria-hidden className="pointer-events-none absolute inset-0 rounded-[12px] ring-1 ring-inset ring-white/5" />
+      </div>
+      <figcaption className="mt-3 flex items-center justify-between font-mono text-[0.68rem] uppercase tracking-[0.12em] text-subtle">
+        <span>{profile.name}</span>
+        <span>{profile.location.split(',')[0]}</span>
+      </figcaption>
+    </figure>
+  )
+}
+
 export function About() {
   return (
     <section id="about" aria-labelledby="about-title" className="py-24 md:py-32">
@@ -66,8 +95,12 @@ export function About() {
           }
         />
 
-        <div className="mt-14 grid gap-14 md:mt-20 md:grid-cols-12 md:gap-8">
-          <div className="space-y-6 md:col-span-7 md:col-start-4 lg:col-span-5 lg:col-start-4">
+        <div className="mt-14 grid grid-cols-1 gap-14 md:mt-20 md:grid-cols-12 md:gap-8">
+          <Reveal className="w-full max-w-[20rem] md:col-span-4 md:max-w-none lg:sticky lg:top-24 lg:col-span-3 lg:self-start">
+            <Portrait />
+          </Reveal>
+
+          <div className="space-y-6 md:col-span-8 lg:col-span-5">
             {paragraphs.map((p, i) => (
               <Reveal key={i} delay={i * 0.04}>
                 <p
@@ -83,7 +116,7 @@ export function About() {
             ))}
           </div>
 
-          <Reveal delay={0.1} className="md:col-span-8 md:col-start-4 lg:col-span-4 lg:col-start-9">
+          <Reveal delay={0.1} className="md:col-span-8 md:col-start-5 lg:col-span-4 lg:col-start-9">
             <ProfileCard />
             <div className="mt-6">
               <p className="eyebrow">Open to</p>
